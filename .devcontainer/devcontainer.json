@@ -1,0 +1,22 @@
+{
+    "name": "yt-dlp_bypass_rs",
+    "dockerComposeFile": "../.docker/compose.yaml",
+    "service": "yt-dlp_bypass_rs",
+    "workspaceFolder": "/yt-dlp_bypass_rs",
+    "remoteEnv": {
+        "LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}"
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "rust-lang.rust-analyzer",
+                "tamasfe.even-better-toml",
+                "fill-labs.dependi",
+                "oderwat.indent-rainbow"
+            ]
+        }
+    },
+    "features": {
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+    }
+}

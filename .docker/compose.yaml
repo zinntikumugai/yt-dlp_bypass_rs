@@ -1,0 +1,11 @@
+services:
+  yt-dlp_bypass_rs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - "../:/yt-dlp_bypass_rs"
+      # - "/var/run/docker.sock:/var/run/docker.sock"
+    working_dir: /yt-dlp_bypass_rs
+    command: /bin/sh
+    tty: true
