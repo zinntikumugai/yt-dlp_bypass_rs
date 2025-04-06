@@ -1,22 +1,22 @@
 use std::process::Command;
 use std::env;
-use yt_dlp_bypass::get_original_yt_dlp_path;
-
+use yt_dlp_bypass::{get_original_yt_dlp_path, get_proxy_url};
 
 fn main() {
     // オリジナルのyt-dlpのパスを取得
     let original_yt_dlp = get_original_yt_dlp_path();
-    
-    // 現在の実行ファイルのパスを取得
-    let current_exe = env::current_exe().expect("実行ファイルのパスを取得できませんでした");
+    eprintln!("original_yt_dlp: {}", original_yt_dlp.display());
     
     // コマンドライン引数を取得（最初の引数は自己実行ファイル名なのでスキップ）
     let mut cmd_args: Vec<String> = env::args().skip(1).collect();
     
-    // cookies.txtのパスを追加
-    let cookies_path = current_exe.parent().unwrap().join("cookies.txt");
-    cmd_args.push("--cookies".to_string());
-    cmd_args.push(cookies_path.to_str().unwrap().to_string());
+    // プロキシ設定がある場合は追加
+    if let Some(proxy_url) = get_proxy_url() {
+        cmd_args.push("--proxy".to_string());
+        cmd_args.push(proxy_url);
+    }
+
+    eprintln!("cmd_args: {:?}", cmd_args);
     
     // オリジナルのyt-dlpを実行
     let output = Command::new(original_yt_dlp)
